@@ -4,7 +4,7 @@ $path = realpath(dirname(__FILE__))."/data.json";
 file_put_contents($path, file_get_contents($url));
 $data = file_get_contents("data.json");
 $res = json_decode($data,true);
-function normform($number, $after) {//месяц,месяцы,месяца
+function normform($number, $after) {//месяц,месяцев,месяца
 	$cases = array (2, 0, 1, 1, 1, 2);
 	return $number.' '.$after[ ($number%100>4 && $number%100<20)? 2: $cases[min($number%10, 5)] ];
 }
