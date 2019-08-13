@@ -1,7 +1,7 @@
 <?php
-//$url = 'https://www.sknt.ru/job/frontend/data.json';
-//$path = realpath(dirname(__FILE__))."/data.json";
-//file_put_contents($path, file_get_contents($url));
+$url = 'https://www.sknt.ru/job/frontend/data.json';
+$path = realpath(dirname(__FILE__))."/data.json";
+file_put_contents($path, file_get_contents($url));
 $data = file_get_contents("data.json");
 $res = json_decode($data,true);
 function normform($number, $after) {//месяц,месяцы,месяца
