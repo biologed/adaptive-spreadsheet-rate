@@ -1,0 +1,114 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SS</title>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap&subset=cyrillic" rel="stylesheet">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body>
+<script>
+$(function() {
+response=[];
+$.ajax({
+	url: 'app.php',
+	async: false,
+	success: function(data) {
+		//console.log(data);
+		$('body').html(data);
+	}
+});
+});
+</script>
+<script>
+  $(function() {
+	for(var i=0;i<=$("div#rate").length;i++){
+		$("#rate-title-"+i).on("click", function() {
+		var i = $(this).attr('data-item');
+			$("#gate").css({
+				"-webkit-transform":"translateX(-100%)",
+				"-moz-transform":"translateX(-100%)",
+				"-ms-transform":"translateX(-100%)",
+				"transform":"translateX(-100%)"
+			});
+			$("#rate-body-"+i).css({
+				"-webkit-transform":"translateX(0%)",
+				"-moz-transform":"translateX(0%)",
+				"-ms-transform":"translateX(0%)",
+				"transform":"translateX(0%)"
+			});
+			var t = $("#rate-body-"+i).css('transform');
+			console.log(t);
+			if(t == 'translateX(0%)') {
+				$("#gate").css({
+					"display":"none"
+				});
+			}
+		});
+		
+		$("#rate-body-"+i+"-title-1").on("click", function() {
+		var i = $(this).attr('data-item');
+			$("#gate").css({
+				"-webkit-transform":"translateX(0%)",
+				"-moz-transform":"translateX(0%)",
+				"-ms-transform":"translateX(0%)",
+				"transform":"translateX(0%)"
+			});
+			$("#rate-body-"+i).css({
+				"-webkit-transform":"translateX(100%)",
+				"-moz-transform":"translateX(100%)",
+				"-ms-transform":"translateX(100%)",
+				"transform":"translateX(100%)"
+			});
+			$("#gate").css({
+				"display":"block"
+			});
+			
+		});
+		
+		for(var j=0;j<=$("div#rate-body-"+i+"-title").length;j++){
+			$("#rate-body-"+i+"-month-title-"+j).on("click", function() {
+				var i = $(this).attr('data-item');
+				var j = $(this).attr('data-body');
+				console.log(i);
+				$("#rate-body-"+i).css({
+					"-webkit-transform":"translateX(-100%)",
+					"-moz-transform":"translateX(-100%)",
+					"-ms-transform":"translateX(-100%)",
+					"transform":"translateX(-100%)"
+				});
+				$("#rate-body-"+i+"-month-body-"+j).css({
+					"-webkit-transform":"translateX(0%)",
+					"-moz-transform":"translateX(0%)",
+					"-ms-transform":"translateX(0%)",
+					"transform":"translateX(0%)"
+				});
+			});
+		
+			$("#rate-body-"+i+"-back-title-"+j).on("click", function() {
+				var i = $(this).attr('data-item');
+				var j = $(this).attr('data-body');
+				$("#rate-body-"+i+"-month-body-"+j).css({
+					"-webkit-transform":"translateX(100%)",
+					"-moz-transform":"translateX(100%)",
+					"-ms-transform":"translateX(100%)",
+					"transform":"translateX(100%)"
+				});
+				$("#rate-body-"+i).css({
+					"-webkit-transform":"translateX(0%)",
+					"-moz-transform":"translateX(0%)",
+					"-ms-transform":"translateX(0%)",
+					"transform":"translateX(0%)"
+				});
+			});
+		}
+	}
+	
+  });
+  </script>
+</body>
+</html>

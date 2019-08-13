@@ -1,0 +1,207 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	background-color:#eee;
+    margin: 0;
+    overflow-x: hidden;
+	display:flex;
+}
+a {
+    color: #1082fe;
+    text-decoration: none;
+    font-weight: 600;
+}
+.rate, .earth, .earth-month, #gate {
+    position: absolute;
+    width: 100%;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.earth {
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    transform: translateX(100%);
+}
+.earth-month {
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    transform: translateX(100%);
+}
+
+.count {
+	background-color:#f0eff4;
+}
+.count > .title, .earth-month .count > .title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 15px;
+    border-top: solid 1px #d2d1d5;
+    border-bottom: solid 1px #d2d1d5;
+    background-color: #f7f7f8;
+	
+}
+#gate {
+	width:100%;
+    background-color: #f0eff4;
+    position: relative;
+    margin-bottom: 30px;
+    border-top: solid 1px #d2d1d5;
+    border-bottom: solid 1px #d2d1d5;
+}
+
+.month {
+	background-color:#fff;
+    position: relative;
+	margin-bottom:30px;
+    border-top: solid 1px #d2d1d5;
+    border-bottom: solid 1px #d2d1d5;
+}
+
+.rate {
+	width:33.333%;
+	float:left;
+	background-color:#fff;
+    position: relative;
+	margin-bottom:30px;
+    border-top: solid 1px #d2d1d5;
+    border-bottom: solid 1px #d2d1d5;
+}
+@media screen and (max-width: 640px) {
+.rate {
+	width:100%!important;
+}
+#gate .rate .section {
+    min-height: 0!important;
+}
+}
+
+@media screen and (min-width: 640px) and (max-width: 1023px) {
+.rate {
+	width:50%!important;
+}
+}
+
+.active {
+    -webkit-transform: translateX(0%);
+    -moz-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    transform: translateX(0%);
+}
+.hide-right {
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+.hide-left {
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    transform: translateX(100%);
+}
+.rate .title, .month .title {
+    border-bottom: solid 1px #e2e2e4;
+    color: #73bd15;
+    font-weight: 600;
+    font-size: 24px;
+    padding: 15px 0;
+    margin-left: 15px;
+	border-right: solid 1px #e2e2e4;
+}
+.rate .speed {
+    display: inline-block;
+    text-align: left;
+    padding: 8px 15px;
+    padding-right: 10px;
+    font-weight: bold;
+    color: #fff;
+    font-size: 18px;
+    margin: 8px 0;
+}
+.rate:nth-child(1) .speed {
+	background-color: #6f5f3e;
+}
+.rate:nth-child(2) .speed {
+	background-color: #0074da;
+}
+.rate:nth-child(3) .speed {
+	background-color: #e74807;
+}
+.rate:nth-child(4) .speed {
+	background-color: #0074da;
+}
+.rate:nth-child(5) .speed {
+	background-color: #e74807;
+}
+.rate .disc,.month .disc {
+	padding: 5px 15px;
+    font-size: 16px;
+}
+.cops {
+	padding: 5px 15px;
+    font-size: 16px;
+	color: #9e9e9e;
+    border-bottom: solid 1px #d2d1d5;
+	
+}
+.button {
+    background-color: #73bd15;
+    padding: 15px;
+    margin: 15px;
+	color:#fff;
+	text-align:center;
+    font-size: 22px;
+    border-radius: 3px;
+}
+.button:hover {
+	cursor:pointer;
+    background-color: #8ad629;
+}
+.rate .price, .month .price{
+	font-weight: 600;
+	padding: 5px 15px;
+    font-size: 20px;
+}
+.rate .section, .earth-title, .earth-month .count > .title {
+	position: relative;
+    cursor: pointer;
+	border-right: solid 1px #e2e2e4;
+}
+#gate .rate .section {
+    min-height: 175px;
+}
+.earth .section {
+    min-height: 95px;
+}
+.rate .section:after {
+	font-family:'FontAwesome';
+	content: "\f054";
+	position: absolute;
+	right:15px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.count > .earth-title:before, .earth-month .count > .title:before {
+    font-family: 'FontAwesome';
+    content: "\f053";
+    position: absolute;
+    left: 15px;
+    font-size: 33px;
+    top: 18px;
+    color: #73bd15;
+}
+.rate .link {
+    border-top: solid 1px #e2e2e4;
+    padding: 15px 0;
+    margin-left: 15px;
+	border-right: solid 1px #e2e2e4;
+}
