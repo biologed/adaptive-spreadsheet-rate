@@ -1,10 +1,10 @@
 <?php
-$url = 'https://www.sknt.ru/job/frontend/data.json';
-$path = realpath(dirname(__FILE__))."/data.json";
-file_put_contents($path, file_get_contents($url));
+//$url = 'https://www.sknt.ru/job/frontend/data.json';
+//$path = realpath(dirname(__FILE__))."/data.json";
+//file_put_contents($path, file_get_contents($url));
 $data = file_get_contents("data.json");
 $res = json_decode($data,true);
-function normform($number, $after) {
+function normform($number, $after) {//месяц,месяцы,месяца
 	$cases = array (2, 0, 1, 1, 1, 2);
 	return $number.' '.$after[ ($number%100>4 && $number%100<20)? 2: $cases[min($number%10, 5)] ];
 }
@@ -28,9 +28,25 @@ if($res > 0){
 			}
 			$pay_period[$i][$j] = $res["tarifs"][$i]["tarifs"][$j]["pay_period"];			
 			$price_m[$i][$j] = $price[$i][$j]/$pay_period[$i][$j];
-			$new_payday = $res["tarifs"][$i]["tarifs"][$j]["new_payday"];
-			$new[] = explode("+",$new_payday);
-			$new_date[$i] = date("d.m.Y",$new[$i][0]);
+			$new_payday[$i][$j] = $res["tarifs"][$i]["tarifs"][$j]["new_payday"];
+			$string = strlen($new_payday[$i][$j]);
+			if($string == 15 && strstr($new_payday[$i][$j],'+')) {//если +
+				$new[$i][$j] = explode("+",$new_payday[$i][$j]);
+				$new[$i][$j][1] = '+'.$new[$i][$j][1];
+			} elseif ($string == 15 && strstr($new_payday[$i][$j],'-')) {//если -
+				$new[$i][$j] = explode("-",$new_payday[$i][$j]);
+				$new[$i][$j][1] = '-'.$new[$i][$j][1];
+			} elseif ($string > 10 && is_int($new_payday[$i][$j])) {//попытка получения таймзоны средствами php
+				$new[$i][$j][0] = substr($new_payday[$i][$j],10);
+				$new[$i][$j][1] = date_default_timezone_get();
+			} else {//поломалось
+				$new[$i][$j][0] = time()+($pay_period[$i][$j]*2629743);
+				$new[$i][$j][1] = date_default_timezone_get();
+			}
+			
+			$date[$i][$j] = new DateTime(date("Y-m-d H:i",$new[$i][$j][0]));
+			$date[$i][$j]->setTimeZone(new DateTimeZone($new[$i][$j][1]));
+			$new_date[$i][$j] = $date[$i][$j]->format('d.m.Y H:i');
 			$disc[$i][$j] = ($price_m[$i][0]-$price_m[$i][$j])*$pay_period[$i][$j];
 		}
 		$min[] = min($price_m[$i]);
@@ -60,7 +76,7 @@ if($res > 0){
 	for($i=0;$i<count($res["tarifs"]);$i++) {
 		for($j=0;$j<count($res["tarifs"][$i]["tarifs"]);$j++) {
 			$month[$i] = normform($pay_period[$i][$j],$titles);
-			echo '<div id="rate-body-'.$i.'-month-body-'.$j.'" class="container earth-month"><div class="count"><div id="rate-body-'.$i.'-back-title-'.$j.'" data-item="'.$i.'" data-body="'.$j.'" class="title">Выбор тарифа</div><div class="month"><div class="title">Тариф "'.$title[$i].'"</div><div class="section"><div class="price">Период оплаты – '.$month[$i].'<br>'.$price_m[$i][$j].' ₽/мес</div><div class="disc">разовый платеж – '.$price[$i][$j].' ₽<br>со счета спишется – '.$price[$i][$j].' ₽<br></div><div class="cops">вступит в силу – сегодня<br>активно до – '.$new_date[$i].'<br></div><div class="button">Выбрать</div></div></div></div></div>';
+			echo '<div id="rate-body-'.$i.'-month-body-'.$j.'" class="container earth-month"><div class="count"><div id="rate-body-'.$i.'-back-title-'.$j.'" data-item="'.$i.'" data-body="'.$j.'" class="title">Выбор тарифа</div><div class="month"><div class="title">Тариф "'.$title[$i].'"</div><div class="section"><div class="price">Период оплаты – '.$month[$i].'<br>'.$price_m[$i][$j].' ₽/мес</div><div class="disc">разовый платеж – '.$price[$i][$j].' ₽<br>со счета спишется – '.$price[$i][$j].' ₽<br></div><div class="cops">вступит в силу – сегодня<br>активно до – '.$new_date[$i][$j].'<br></div><div class="button">Выбрать</div></div></div></div></div>';
 		}
 		echo'</div></div>';
 	}
