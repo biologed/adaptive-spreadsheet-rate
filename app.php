@@ -4,7 +4,7 @@ $path = realpath(dirname(__FILE__))."/data.json";
 file_put_contents($path, file_get_contents($url));
 $data = file_get_contents("data.json");
 $res = json_decode($data,true);
-function normform($number, $after) {//месяц,месяцев,месяца
+function normform($number, $after) {//месяц,месяцы,месяца
 	$cases = array (2, 0, 1, 1, 1, 2);
 	return $number.' '.$after[ ($number%100>4 && $number%100<20)? 2: $cases[min($number%10, 5)] ];
 }
@@ -36,9 +36,6 @@ if($res > 0){
 			} elseif ($string == 15 && strstr($new_payday[$i][$j],'-')) {//если -
 				$new[$i][$j] = explode("-",$new_payday[$i][$j]);
 				$new[$i][$j][1] = '-'.$new[$i][$j][1];
-			} elseif ($string > 10 && is_int($new_payday[$i][$j])) {//попытка получения таймзоны средствами php
-				$new[$i][$j][0] = substr($new_payday[$i][$j],10);
-				$new[$i][$j][1] = date_default_timezone_get();
 			} else {//поломалось
 				$new[$i][$j][0] = time()+($pay_period[$i][$j]*2629743);
 				$new[$i][$j][1] = date_default_timezone_get();
